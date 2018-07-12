@@ -16,16 +16,19 @@ public class IndexController{
     @GetMapping("/user")
     public String list(Model model){
         User user = new User();
+        user.setId(1);
         user.setName("南宁");
         user.setAge(10);
         user.setBirthday("8.19");
         user.setAddress("vjdsjis");
         User user1 = new User();
+        user1.setId(2);
         user1.setName("清河");
         user1.setAge(10);
         user1.setBirthday("8.19");
-        user1.setAddress("fuyfguigh");
+        user1.setAddress("shdjfjg,jjh");
         User user2 = new User();
+        user2.setId(3);
         user2.setName("姑苏");
         user2.setAge(10);
         user2.setBirthday("8.19");
