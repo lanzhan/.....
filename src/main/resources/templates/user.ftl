@@ -3,58 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript">
-        // $(function() {
-        //     $('#test').click(function() {
-        //         $.ajax({
-        //             url: 'user/getUser',
-        //             type: 'post',
-        //             dataType: 'json',
-        //             success: function(json) {
-        //                 var item;
-        //                 $.each(json, function(i, result) {
-        //                     item = "<tr><td>" + result['name'] + "</td><td>" + result['age'] + "</td><td>" +
-        //                         result['birthday']+ "</td><td>" + result['address']+ "</td></tr>";
-        //                     $('.table').append(item);
-        //                 });
-        //             }
-        //         })
-        //     })
-        // });
-
-        //页面加载   获取全部信息
-        $(function(){
-            $.ajax({
-                type: "POST",//请求方式
-                url: "http://localhost:8080/user/getUser",//地址，就是json文件的请求路径
-                dataType: "json",//数据类型可以为 text xml json  script  jsonp
-                success: function(result){//返回的参数就是 action里面所有的有get和set方法的参数
-                    addBox(result);
-                }
-            });
-            /*$.get("item.json",function(result){
-                //result数据添加到box容器中;
-                addBox(result);
-            });*/
-        });
-        function addBox(result){
-            //result是一个集合,所以需要先遍历
-            $.each(result,function(index,obj){
-                $("#box").append(
-                    "<div>"+obj['name']+"</div>"+
-                    //获得名字
-                    "<div >"+obj['age']+"</div>"+
-                    //获得性别
-                    "<div >"+obj['birthday']+"</div>"+
-                    //获得邮箱地址
-                    "<div >"+obj['address']+"</div>");
-            });
+    <style type="text/css">
+        #qr_insert_div{
+            display: none;
         }
+    </style>
+    <script type="text/javascript">
+        $("#delete")
+        $("#insert")
+        $("#select")
+        $("#update")
     </script>
 </head>
 <body>
-<table id="box">
 
-</table>
+<div align="center">
+    <h1>用户信息</h1>
+    <br/>
+    <table border="2">
+        <div><input type="text" id="t_select">
+        <input type="button" value="查询" id="select">
+        <input type="button" value="添加" id="insert"></div>
+        <tr>
+            <td>名字</td>
+            <td>年龄</td>
+            <td>生日</td>
+            <td>地址</td>
+            <td>操作</td>
+        </tr>
+        <tr>
+            <td id="name">${user.name}</td>
+            <td id="age">${user.age}</td>
+            <td id="birthday">${user.birthday}</td>
+            <td id="address">${user.address}</td>
+            <td><input type="button" value="删除" id="delete">
+                <input type="button" value="修改" id="update"> </td>
+        </tr>
+    </table>
+</div>
+<div align="center" id="qr_insert_div">
+    <table border="1">
+        <tr><td>姓名：<input type="text" name="name"></td></tr>
+        <tr><td>年龄：<input type="text" name="age"></td></tr>
+        <tr><td>生日：<input type="text" name="birthday"></td></tr>
+        <tr><td>地址：<input type="text" name="address"></td></tr>
+        <tr><td><input type="button" value="确认添加" id="qr_insert"></td></tr>
+    </table>
+</div>
 </body>
+<script>
+    console.log("dddd")
+</script>
 </html>
