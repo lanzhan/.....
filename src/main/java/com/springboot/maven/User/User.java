@@ -3,7 +3,7 @@ package com.springboot.maven.User;
 import javax.validation.constraints.NotEmpty;
 
 public class User {
-    private  int id;
+    private  String id;
     private  String name;
     private  int age;
     private String birthday;
@@ -11,7 +11,7 @@ public class User {
     public  User(){
 
     }
-    public User(int id,String name, int age,String birthday,String  address){
+    public User(String id,String name, int age,String birthday,String  address){
         this.id=id;
         this.name=name;
         this.age=age;
@@ -19,9 +19,9 @@ public class User {
         this.address=address;
     }
     @NotEmpty(message="id不能为空")
-    public int getId() { return id;  }
+    public String getId() { return id;  }
 
-    public void setId(int id) {  this.id = id;   }
+    public void setId(String id) {  this.id = id;   }
 
     public String getName() {
         return name;
