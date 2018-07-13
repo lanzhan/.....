@@ -1,20 +1,27 @@
 package com.springboot.maven.User;
 
+import javax.validation.constraints.NotEmpty;
+
 public class User {
     private  int id;
     private  String name;
     private  int age;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     private String birthday;
     private  String address;
+    public  User(){
+
+    }
+    public User(int id,String name, int age,String birthday,String  address){
+        this.id=id;
+        this.name=name;
+        this.age=age;
+        this.birthday=birthday;
+        this.address=address;
+    }
+    @NotEmpty(message="id不能为空")
+    public int getId() { return id;  }
+
+    public void setId(int id) {  this.id = id;   }
 
     public String getName() {
         return name;

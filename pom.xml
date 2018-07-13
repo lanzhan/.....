@@ -40,6 +40,10 @@
             <artifactId>maven</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
         <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>

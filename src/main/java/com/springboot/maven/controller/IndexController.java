@@ -4,40 +4,70 @@ package com.springboot.maven.controller;
 import com.springboot.maven.User.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
 public class IndexController{
+    private Map<Integer,User> userMap=new HashMap<Integer, User>();
+
+    public IndexController(){
+        userMap.put(1,new User(1,"南宁",10,"8.19","sahfsdfhbn"));
+        userMap.put(2,new User(2,"清河",13,"8.19","rtgfsdgvd"));
+        userMap.put(3,new User(3,"姑苏",15,"8.19","piujhyhbn"));
+        userMap.put(4,new User(4,"云梦",17,"8.19","zxdgfhhio"));
+    }
+    @GetMapping("/{id}")
+    public String show(@PathVariable Integer id, Model model){
+        model.addAttribute(userMap.get(id));
+        return "user";
+    }
+    @GetMapping("/{id}/update")
+    public String update(@PathVariable Integer id, Model model){
+        model.addAttribute(userMap.get(id));
+        return "update";
+    }
+    @PostMapping("/{id}/update")
+    public String update(@PathVariable Integer id,@Validated User user,BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "update";
+        }else{
+            userMap.remove(id);
+            userMap.put(user.getId(),user);
+            return "redirect:/user";
+        }
+    }
+    @GetMapping("/add")
+    public String add(@ModelAttribute("user") User user){
+        return "add";
+    }
+    @PostMapping("/add")
+    public String add(@Validated User user, BindingResult bindingResult) throws IOException{
+        if(bindingResult.hasErrors()){
+            return "add";
+        }else{
+            userMap.put(user.getId(),user);
+            return "redirect:/user";
+        }
+    }
+
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable Integer id){
+        userMap.remove(id);
+        return "redirect:/user";
+    }
     @GetMapping("/user")
     public String list(Model model){
-        User user = new User();
-        user.setId(1);
-        user.setName("南宁");
-        user.setAge(10);
-        user.setBirthday("8.19");
-        user.setAddress("vjdsjis");
-        User user1 = new User();
-        user1.setId(2);
-        user1.setName("清河");
-        user1.setAge(10);
-        user1.setBirthday("8.19");
-        user1.setAddress("shdjfjg,jjh");
-        User user2 = new User();
-        user2.setId(3);
-        user2.setName("姑苏");
-        user2.setAge(10);
-        user2.setBirthday("8.19");
-        user2.setAddress("fuyfguigh");
-        List<User> list = new ArrayList<>();
-        list.add(user);
-        list.add(user1);
-        list.add(user2);
-        model.addAttribute("user",list);
+        model.addAttribute("users",userMap);
         return "user";
     }
 }

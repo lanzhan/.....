@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
 </head>
 <body>
 
@@ -10,8 +11,8 @@
     <h1>用户信息</h1>
     <br/>
     <div><input type="text" value="名字" id="t_select">
-    <input type="button" value="查询" onclick="select();">
-    <a href="/add">添加</a></div>
+    <input type="button" value="查询" onclick="select">
+    <a href="add">添加</a></div>
     <table border="2">
 
         <tr>
@@ -22,20 +23,19 @@
             <td>地址</td>
             <td>操作</td>
         </tr>
-        <#list user as text>
-         <tr>
-            <td id="id">${text.id}</td>
-            <td id="name">${text.name}</td>
-            <td id="age">${text.age}</td>
-            <td id="birthday">${text.birthday}</td>
-            <td id="address">${text.address}</td>
-            <td>
-                <input type="button" value="删除" onclick="del();">
-                <a href="/update">修改</a>
-            </td>
-        </tr>
-        </#list>
-
+        <forEach items="${users}" var="userMap">
+            <tr>
+                <td id="id">${userMap.value.id}</td>
+                <td id="name">${userMap.value.name}</td>
+                <td id="age">${userMap.value.age}</td>
+                <td id="birthday">${userMap.value.birthday}</td>
+                <td id="address">${userMap.value.address}</td>
+                <td>
+                    <a href="${userMap.value.id}/delete">删除</a>
+                    <a href="${userMap.value.id}/update">修改</a>
+                </td>
+            </tr>
+        </forEach>
     </table>
 </div>
 
