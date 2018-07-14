@@ -21,22 +21,31 @@ public class IndexController{
     private Map<String,User> userMap=new HashMap<String, User>();
 
     public IndexController(){
-        userMap.put("1",new User("1","南宁",10,"8.19","sahfsdfhbn"));
+        userMap.put("1",new User("1","兰陵",10,"8.19","sahfsdfhbn"));
         userMap.put("2",new User("2","清河",13,"8.19","rtgfsdgvd"));
         userMap.put("3",new User("3","姑苏",15,"8.19","piujhyhbn"));
         userMap.put("4",new User("4","云梦",17,"8.19","zxdgfhhio"));
     }
+    @GetMapping("/user")
+    @ResponseBody
+    public String list(Model model){
+        model.addAttribute("users",userMap);
+        return "user";
+    }
     @GetMapping("/{id}")
+    @ResponseBody
     public String show(@PathVariable String id, Model model){
         model.addAttribute(userMap.get(id));
         return "user";
     }
     @GetMapping("/{id}/update")
+    @ResponseBody
     public String update(@PathVariable String id, Model model){
         model.addAttribute(userMap.get(id));
         return "update";
     }
     @PostMapping("/{id}/update")
+    @ResponseBody
     public String update(@PathVariable String id,@Validated User user,BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return "update";
@@ -47,10 +56,12 @@ public class IndexController{
         }
     }
     @GetMapping("/add")
+    @ResponseBody
     public String add(@ModelAttribute("user") User user){
         return "add";
     }
     @PostMapping("/add")
+    @ResponseBody
     public String add(@Validated User user, BindingResult bindingResult) throws IOException{
         if(bindingResult.hasErrors()){
             return "add";
@@ -61,13 +72,10 @@ public class IndexController{
     }
 
     @GetMapping("/{id}/delete")
+    @ResponseBody
     public String delete(@PathVariable String id){
         userMap.remove(id);
         return "redirect:/user";
     }
-    @GetMapping("/user")
-    public String list(Model model){
-        model.addAttribute("users",userMap);
-        return "user";
-    }
+
 }

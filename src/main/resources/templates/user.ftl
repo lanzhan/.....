@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+
 <html lang="en" >
 <head>
     <meta charset="UTF-8">
@@ -23,19 +25,19 @@
             <td>地址</td>
             <td>操作</td>
         </tr>
-        <forEach items="${users}" var="userMap">
+        <#list users as a>
             <tr>
-                <td id="id">${userMap.value.id}</td>
-                <td id="name">${userMap.value.name}</td>
-                <td id="age">${userMap.value.age}</td>
-                <td id="birthday">${userMap.value.birthday}</td>
-                <td id="address">${userMap.value.address}</td>
+                <td id="id">${a.id}</td>
+                <td id="name">${a.name}</td>
+                <td id="age">${a.age}</td>
+                <td id="birthday">${a.birthday}</td>
+                <td id="address">${a.address}</td>
                 <td>
-                    <a href="${userMap.value.id}/delete">删除</a>
-                    <a href="${userMap.value.id}/update">修改</a>
+                <a href="${a.id}/delete">删除</a>
+                <a href="${a.id}/update">修改</a>
                 </td>
             </tr>
-        </forEach>
+        </#list>
     </table>
 </div>
 
