@@ -1,7 +1,11 @@
 package com.springboot.maven.User;
 
-import javax.validation.constraints.NotEmpty;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotEmpty;
+@Component
+@Repository
 public class User {
     private  String id;
     private  String name;

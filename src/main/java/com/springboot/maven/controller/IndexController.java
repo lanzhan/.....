@@ -3,6 +3,7 @@ package com.springboot.maven.controller;
 
 import com.springboot.maven.User.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/user")
 public class IndexController{
     private Map<String,User> userMap=new HashMap<String, User>();
 
@@ -26,17 +27,17 @@ public class IndexController{
         userMap.put("3",new User("3","姑苏",15,"8.19","piujhyhbn"));
         userMap.put("4",new User("4","云梦",17,"8.19","zxdgfhhio"));
     }
-    @GetMapping("/user")
+    @RequestMapping("/list")
     @ResponseBody
     public String list(Model model){
         model.addAttribute("users",userMap);
-        return "user";
+        return "list";
     }
     @GetMapping("/{id}")
     @ResponseBody
     public String show(@PathVariable String id, Model model){
         model.addAttribute(userMap.get(id));
-        return "user";
+        return "list";
     }
     @GetMapping("/{id}/update")
     @ResponseBody
@@ -52,7 +53,7 @@ public class IndexController{
         }else{
             userMap.remove(id);
             userMap.put(user.getId(),user);
-            return "redirect:/user";
+            return "redirect:list";
         }
     }
     @GetMapping("/add")
@@ -67,7 +68,7 @@ public class IndexController{
             return "add";
         }else{
             userMap.put(user.getId(),user);
-            return "redirect:/user";
+            return "redirect:list";
         }
     }
 
@@ -75,7 +76,7 @@ public class IndexController{
     @ResponseBody
     public String delete(@PathVariable String id){
         userMap.remove(id);
-        return "redirect:/user";
+        return "redirect:list";
     }
 
 }
