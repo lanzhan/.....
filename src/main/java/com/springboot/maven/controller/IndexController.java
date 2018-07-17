@@ -28,55 +28,41 @@ public class IndexController{
         userMap.put("4",new User("4","云梦",17,"8.19","zxdgfhhio"));
     }
     @RequestMapping("/list")
-    @ResponseBody
     public String list(Model model){
         model.addAttribute("users",userMap);
         return "list";
     }
-    @GetMapping("/{id}")
-    @ResponseBody
-    public String show(@PathVariable String id, Model model){
-        model.addAttribute(userMap.get(id));
-        return "list";
+    @GetMapping("/add")
+    public String add(@ModelAttribute("user") User user){
+        return "add";
+    }
+    @PostMapping("/add")
+    public String add(@Validated User user, BindingResult bindingResult) throws IOException{
+        if(bindingResult.hasErrors()){
+            return "add";
+        }else{
+            userMap.put(user.getId(),user);
+            return "redirect:/user/list";
+        }
     }
     @GetMapping("/{id}/update")
-    @ResponseBody
     public String update(@PathVariable String id, Model model){
         model.addAttribute(userMap.get(id));
         return "update";
     }
     @PostMapping("/{id}/update")
-    @ResponseBody
     public String update(@PathVariable String id,@Validated User user,BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return "update";
         }else{
             userMap.remove(id);
             userMap.put(user.getId(),user);
-            return "redirect:list";
+            return "redirect:/user/list";
         }
     }
-    @GetMapping("/add")
-    @ResponseBody
-    public String add(@ModelAttribute("user") User user){
-        return "add";
-    }
-    @PostMapping("/add")
-    @ResponseBody
-    public String add(@Validated User user, BindingResult bindingResult) throws IOException{
-        if(bindingResult.hasErrors()){
-            return "add";
-        }else{
-            userMap.put(user.getId(),user);
-            return "redirect:list";
-        }
-    }
-
     @GetMapping("/{id}/delete")
-    @ResponseBody
     public String delete(@PathVariable String id){
         userMap.remove(id);
-        return "redirect:list";
+        return "redirect:/user/list";
     }
-
 }
